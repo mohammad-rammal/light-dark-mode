@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import faqData from "../data/faqData";
 import FAQItem from "./FAQItem";
 
@@ -18,6 +18,20 @@ const FAQList = ({ toggleDarkMode, darkMode }) => {
     setOpenID(null);
   };
 
+  useEffect(() => {
+    if (openID && typeof window !== "undefined") {
+      setTimeout(() => {
+        const element = document.getElementById(`faq-item-${openID}`);
+        if (element) {
+          element.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
+      }, 100);
+    }
+  }, [openID]);
+
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
@@ -29,8 +43,14 @@ const FAQList = ({ toggleDarkMode, darkMode }) => {
             className="flex items-center gap-2 px-4 py-2 text-secondary font-medium text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 rounded-lg shadow-sm hover:shadow-md focus:outline-none focus-visible:ring-indigo-500 transition-all duration-300 cursor-pointer"
             onClick={toggleExpandAll}
           >
-            <i className="bx bx-collapse-alt text-lg">
-              <span className="ps-2">Expand All</span>
+            <i
+              className={`bx bx-${
+                expandAll ? "collapse-alt" : "expand-alt"
+              } text-lg`}
+            >
+              <span className="ps-2">
+                {expandAll ? "Collapse All" : "Expand All"}
+              </span>
             </i>
           </button>
           <button

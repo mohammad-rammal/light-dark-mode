@@ -4,4 +4,35 @@
   font-family: "Roboto", sans-serif;
 }
 
+html::-webkit-scrollbar {
+  display: none;
+}
+
+html {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@theme {
+  --animate-color-cycle: color-cycle 5s ease-in-out infinite;
+
+  @keyframes color-cycle {
+    0% {
+      color: #3b82f6;
+    }
+    25% {
+      color: #6366f1;
+    }
+    50% {
+      color: #8b5cf6;
+    }
+    75% {
+      color: #ec4899;
+    }
+    100% {
+      color: #3b82f6;
+    }
+  }
+}
+
 @custom-variant dark (&:where(.dark, .dark *));
